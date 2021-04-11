@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300&display=swap');
+
+body{
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+.mdc-touch-target-wrapper {
+    position: relative !important;
+}
+
+#f_but {
+    position: sticky !important;
+    bottom: 30px !important;
+    margin-left: 85%;
+}
+
+#list {
+    list-style-type: circle;
+}

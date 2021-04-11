@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{ useReducer, useState} from "react"
+import "./App.scss"
 
-function App() {
+import AddWord from "./components/addWord"
+import FullScreenDialog from "./components/fullPageDialog";
+import SearchAppBar from "./components/appBar";
+import Main from "./components/main";
+
+import { wordContext } from "./context/context";
+import { initialState, reducer } from "./context/reducer";
+
+const App = () => {
+
+  const [state,dispatch] = useReducer(reducer,initialState);
+
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen1 = (item) => {
+    setOpen1(true);
+    setDialogData(item)
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
+  };
+
+  const [dialogData,setDialogData] = useState()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <wordContext.Provider value={{state,dispatch}}>
+      <FullScreenDialog data={dialogData} open={open1} handleClickOpen={handleClickOpen1} handleClose={handleClose1} />
+      <AddWord open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} />
+      <SearchAppBar handleClickOpen1={handleClickOpen1} handleClickOpen={handleClickOpen} />
+      <Main handleClickOpen1={handleClickOpen1} handleClickOpen={handleClickOpen} />
+    </wordContext.Provider>
   );
 }
 
